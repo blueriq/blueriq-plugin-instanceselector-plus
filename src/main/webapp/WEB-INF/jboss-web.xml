@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jboss-web>
+   <context-root>runtime</context-root>
+   <!-- 
+   <resource-env-ref>
+        <resource-env-ref-name>aquima.home</resource-env-ref-name>
+        <!- This binds aquima.home to a global jndi entry ->
+        <!- aquima home is deprecated use spring.config.additional-location instead ->
+        <jndi-name>aquima.home</jndi-name>
+    </resource-env-ref>
+     -->
+</jboss-web>

@@ -1,0 +1,30 @@
+<configuration>
+  <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+    <encoder>
+      <pattern>%d{HH:mm:ss.SSS} %-5level %40.40logger{40} - %msg%n</pattern>
+    </encoder>
+  </appender>
+ 
+  <!-- Limit the org.springframework category to WARN as its DEBUG is verbose -->
+  <logger name="org.springframework" level="WARN" />
+
+  <!-- Limit the org.apache category to INFO as its DEBUG is verbose -->
+  <logger name="org.apache" level="INFO" />
+
+  <!-- Limit the org.quartz category to INFO as its DEBUG is verbose -->
+  <logger name="org.quartz" level="INFO" />
+
+  <!-- Limit the org.mortbay category to INFO as its DEBUG is verbose -->
+  <logger name="org.mortbay" level="INFO" />
+
+  <Logger name="com.aquima" level="WARN" />
+  <Logger name="com.aquima.interactions.test.templates.context.PortalContextBase" level="ERROR" />
+  
+  <!-- 
+  	Unit tests loggen op INFO, anders worden de logs op de continuous integrations server te groot
+  	Tijdelijk op DEBUG zetten is prima, maar niet inchecken
+  -->
+  <root level="INFO">
+    <appender-ref ref="CONSOLE" />
+  </root>
+</configuration>

@@ -1,0 +1,61 @@
+<configuration>
+
+	<!-- Bind Spring environment property to local LogBack property -->
+	<springProperty name="logFile" source="logging.file"/>
+
+	<!-- Possible log keys: aquima.httpSessionId, runtimeSessionId, userName, userId, projectName, projectVersion, currentPageName -->
+	<property name="LOG_PATTERN"
+			  value="%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level %40.40logger{40} runtimeSessionId=&quot;%X{runtimeSessionId}&quot; userId=&quot;%X{userId}&quot; projectName=&quot;%X{projectName}&quot; projectVersion=&quot;%X{projectVersion}&quot; currentPageName=&quot;%X{currentPageName}&quot; [trace=%X{X-B3-TraceId:-},span=%X{X-B3-SpanId:-}] - %msg%n"/>
+
+	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+		<!-- encoders are assigned the type
+			 ch.qos.logback.classic.encoder.PatternLayoutEncoder by default -->
+		<encoder>
+			<pattern>${LOG_PATTERN}</pattern>
+		</encoder>
+	</appender>
+
+	<if condition='isDefined("logFile")'>
+		<then>
+			<appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+				<encoder>
+					<pattern>${LOG_PATTERN}</pattern>
+				</encoder>
+				<file>${logFile}</file>
+				<rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+					<!-- rollover daily -->
+					<fileNamePattern>${logFile}-%d.%i.log</fileNamePattern>
+					<!-- or whenever the file size reaches 10MB -->
+					<maxFileSize>10MB</maxFileSize>
+				</rollingPolicy>
+			</appender>
+		</then>
+	</if>
+
+	<!-- Limit the org.springframework category to WARN as its DEBUG is verbose -->
+	<logger name="org.springframework" level="WARN"/>
+
+	<!-- Limit the org.apache category to INFO as its DEBUG is verbose -->
+	<logger name="org.apache" level="INFO"/>
+
+	<!-- Limit the org.quartz category to INFO as its DEBUG is verbose -->
+	<logger name="org.quartz" level="INFO"/>
+
+	<!-- Limit the org.mortbay category to INFO as its DEBUG is verbose -->
+	<logger name="org.mortbay" level="INFO"/>
+
+	<!-- Limit the org.hibernate category to INFO as its DEBUG is verbose -->
+	<logger name="org.hibernate" level="INFO"/>
+
+	<!-- Limit the tomcat http client communication to INFO as its DEBUG is verbose -->
+	<logger name="httpclient.wire" level="INFO"/>
+
+	<root level="INFO">
+		<appender-ref ref="STDOUT"/>
+		<if condition='isDefined("logFile")'>
+			<then>
+				<appender-ref ref="FILE"/>
+			</then>
+		</if>
+	</root>
+</configuration>

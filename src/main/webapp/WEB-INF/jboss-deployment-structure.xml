@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jboss-deployment-structure>
+	<deployment>
+		<exclude-subsystems>
+			<subsystem name="jpa"/>
+			<subsystem name="webservices"/>
+			<subsystem name="jaxrs"/>
+		</exclude-subsystems>
+		<exclusions>
+			<module name="javaee.api"/>
+			<module name="javax.persistence.api"/>
+			<module name="org.hibernate"/>
+
+			<module name="javax.mail.api"/>
+
+			<!-- RdH: Exlude javax.validation because we use javax.validation 2.x instead of 1.x -->
+			<module name="javax.validation.api"/>
+
+			<!-- RdH: Exclude jboss-logging because Hibernate5 uses different version which is not backwards
+			compatible-->
+			<module name="org.jboss.logging"/>
+			<module name="org.slf4j"/>
+			<module name="org.apache.commons.logging"/>
+			<module name="org.apache.log4j"/>
+			<module name="org.jboss.logmanager"/>
+
+			<!-- RdH: Exclude of jboss modules for SOAP web services because the implementation in jboss(EAP6.4 and EAP7) is
+			older than the implementation inside the Java JRE(1.8) -->
+			<module name="com.sun.xml.messaging.saaj"/>
+			<module name="javax.activation.api"/>
+			<module name="javax.xml.soap.api"/>
+			<module name="org.jboss.as.webservices.server.integration"/>
+			<module name="org.jboss.ws.saaj-impl"/>
+			<!-- End of jboss soap modules exclude -->
+		</exclusions>
+		<dependencies>
+			<system export="true">
+				<paths>
+					<!-- RdH: Imports of Java JRE classes for the spring-actuator -->
+					<path name="com/sun/management"/>
+					<!-- End of Java JRE classes include for the spring-actuator -->
+					<!-- RdH: Imports of Java JRE classes needed for SOAP web services -->
+					<path name="com/sun/xml/internal/messaging/saaj/soap"/>
+					<path name="com/sun/xml/internal/messaging/saaj/soap/dynamic"/>
+					<path name="com/sun/xml/internal/messaging/saaj/soap/impl"/>
+					<path name="com/sun/xml/internal/messaging/saaj/soap/name"/>
+					<path name="com/sun/xml/internal/messaging/saaj/soap/ver1_1"/>
+					<path name="com/sun/xml/internal/messaging/saaj/soap/ver1_2"/>
+					<path name="com/sun/xml/internal/messaging/saaj/util"/>
+					<path name="javax/activation"/>
+					<path name="javax/xml/soap"/>
+					<!-- End of Java JRE classes include for SOAP -->
+				</paths>
+			</system>
+			<module name="javax.annotation.api" export="true"/>
+		</dependencies>
+	</deployment>
+</jboss-deployment-structure>

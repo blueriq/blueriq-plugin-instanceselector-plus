@@ -1,0 +1,17 @@
+<classloading-domain xmlns="urn:jboss:classloading-domain:1.0" name="aquima_domain">
+   <parent-policy>
+      <before-filter>
+         <javabean xmlns="urn:jboss:javabean:2.0" class="org.jboss.classloader.plugins.filter.NegatingClassFilter">
+            <constructor>
+               <parameter>
+                  <javabean xmlns="urn:jboss:javabean:2.0" class="org.jboss.classloader.spi.filter.RecursivePackageClassFilter">
+                     <constructor>
+                        <parameter>org.objectweb.asm,net.sf.cglib,org.hibernate,org.codehaus.jackson</parameter>
+                     </constructor>
+                  </javabean>
+               </parameter>
+            </constructor>
+         </javabean>
+      </before-filter>
+   </parent-policy>
+</classloading-domain>

@@ -1,0 +1,5 @@
+<classloading xmlns="urn:jboss:classloading:1.0" domain="aquima_domain">  
+	parent-domain="Ignored"  
+	export-all="NON_EMPTY"   
+	import-all="true">   
+</classloading>
