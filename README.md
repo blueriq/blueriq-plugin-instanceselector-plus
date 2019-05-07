@@ -1,0 +1,1 @@
+# blueriq-plugin-instanceselector-plus
